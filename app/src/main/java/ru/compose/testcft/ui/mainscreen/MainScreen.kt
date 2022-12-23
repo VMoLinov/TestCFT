@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ru.compose.testcft.model.ResponseDto
+import ru.compose.testcft.model.local.Response
 
 @Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalComposeUiApi::class)
@@ -32,11 +32,9 @@ fun MainScreen(onNavigateToHistory: () -> Unit) {
     val keyboard = LocalSoftwareKeyboardController.current
     val loadData = { viewModel.loadData(text) }
     MainTopBar(onNavigateToHistory) { paddingValues ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
+        Surface(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)) {
             Column(
                 modifier = modifierWithTop,
                 verticalArrangement = Arrangement.Top,
@@ -56,7 +54,7 @@ fun MainScreen(onNavigateToHistory: () -> Unit) {
                     modifier = modifierWithTop,
                     onClick = { loadData(); keyboard?.hide() }
                 ) { Text(text = "Check!") }
-                BottomInfo(data, modifierWithTop)
+                BottomInfo(data, modifierWithTop, viewModel)
             }
         }
     }
@@ -88,9 +86,12 @@ fun MainTopBar(
 }
 
 @Composable
-fun BottomInfo(data: MainScreenState, modifier: Modifier) {
+fun BottomInfo(data: MainScreenState, modifier: Modifier, viewModel: MainScreenViewModel) {
     when (data) {
-        is MainScreenState.Success -> ResponseBody(data.data, modifier)
+        is MainScreenState.Success -> {
+            ResponseBody(data.data, modifier)
+            viewModel.saveResponse(data.data)
+        }
         is MainScreenState.Loading -> CircularProgressIndicator(modifier)
         is MainScreenState.Error -> Text(modifier = modifier, text = data.message)
         is MainScreenState.Idle -> Icon(
@@ -102,11 +103,11 @@ fun BottomInfo(data: MainScreenState, modifier: Modifier) {
 }
 
 @Composable
-fun ResponseBody(response: ResponseDto, modifier: Modifier) {
+fun ResponseBody(response: Response, modifier: Modifier) {
     Column(Modifier.fillMaxWidth(0.7f)) {
-        Text(modifier = modifier, text = response.bankDto.toString())
-        Text(modifier = modifier, text = response.numberDto.toString())
-        Text(modifier = modifier, text = response.countryDto.toString())
+        Text(modifier = modifier, text = response.bank.toString())
+        Text(modifier = modifier, text = response.number.toString())
+        Text(modifier = modifier, text = response.country.toString())
         Text(modifier = modifier, text = response.scheme.toString())
     }
 }

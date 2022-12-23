@@ -15,20 +15,31 @@ import ru.compose.testcft.ui.nistoryscreen.HistoryScreen
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "main"
+    startDestination: String = Points.MAIN.name
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        composable("main") {
+        composable(Points.MAIN.name) {
             MainScreen(onNavigateToHistory = {
-                navController.navigate("history")
+                navController.navigate(Points.HISTORY.name)
             })
         }
-        composable("history") {
-            HistoryScreen()
+        composable(Points.HISTORY.name) {
+            HistoryScreen(onNavigateToItem = {
+
+            })
+        }
+        composable(Points.ITEM.name) {
+
         }
     }
+}
+
+enum class Points(val string: String) {
+    MAIN("main"),
+    HISTORY("history"),
+    ITEM("item");
 }

@@ -5,11 +5,14 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.compose.testcft.network.MainNetworkSource
-import ru.compose.testcft.network.MainNetworkSourceImpl
+import ru.compose.testcft.interactor.MainScreenInteractor
+import ru.compose.testcft.model.local.Response
+import javax.inject.Inject
 
-class MainScreenViewModel(private val networkApi: MainNetworkSource = MainNetworkSourceImpl()) :
+@HiltViewModel
+class MainScreenViewModel @Inject constructor(private val interactor: MainScreenInteractor) :
     ViewModel() {
 
     private val _data: MutableState<MainScreenState> = mutableStateOf(MainScreenState.Idle)
@@ -18,7 +21,13 @@ class MainScreenViewModel(private val networkApi: MainNetworkSource = MainNetwor
     fun loadData(number: String) {
         viewModelScope.launch {
             _data.value = MainScreenState.Loading
-            _data.value = networkApi.getData(number)
+            _data.value = interactor.getNetworkData(number)
+        }
+    }
+
+    fun saveResponse(response: Response) {
+        viewModelScope.launch {
+            interactor.insertData(response)
         }
     }
 }

@@ -65,6 +65,10 @@ dependencies {
     implementation libs.retrofit
     implementation libs.gson_converter
 
+    implementation libs.room_runtime
+    implementation libs.room_ktx
+    kapt libs.room_compiler
+
     implementation libs.navigation
 
     implementation 'androidx.core:core-ktx:1.9.0'

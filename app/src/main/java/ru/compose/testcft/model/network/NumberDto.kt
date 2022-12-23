@@ -1,4 +1,4 @@
-package ru.compose.testcft.model
+package ru.compose.testcft.model.network
 
 import com.google.gson.annotations.SerializedName
 

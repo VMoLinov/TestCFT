@@ -3,6 +3,7 @@ buildscript {
                     coroutines_lifecycle: "2.5.1",
                     dagger              : "2.44",
                     retrofit            : "2.9.0",
+                    room                : "2.4.3",
                     compose_ui_version  : "1.3.2"]
     ext.libs = [coroutines_core         : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
                 coroutines_android      : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines",
@@ -15,6 +16,9 @@ buildscript {
                 hilt_compiler           : "androidx.hilt:hilt-compiler:1.0.0",
                 retrofit                : "com.squareup.retrofit2:retrofit:$versions.retrofit",
                 gson_converter          : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+                room_runtime            : "androidx.room:room-runtime:$versions.room",
+                room_compiler           : "androidx.room:room-compiler:$versions.room",
+                room_ktx                : "androidx.room:room-ktx:$versions.room",
                 navigation              : "androidx.navigation:navigation-compose:2.5.3"]
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

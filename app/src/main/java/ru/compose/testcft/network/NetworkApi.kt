@@ -2,7 +2,7 @@ package ru.compose.testcft.network
 
 import retrofit2.http.GET
 import retrofit2.http.Path
-import ru.compose.testcft.model.ResponseDto
+import ru.compose.testcft.model.network.ResponseDto
 
 interface NetworkApi {
 
