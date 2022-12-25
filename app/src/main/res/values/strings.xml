@@ -22,4 +22,6 @@
     <string name="bank">Bank</string>
     <string name="history_of_responses">History of responses</string>
     <string name="icon_clear">History</string>
+    <string name="enter_a_numbers">Enter a numbers</string>
+    <string name="history_screen">History</string>
 </resources>

@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import ru.compose.testcft.model.local.Response
-import ru.compose.testcft.ui.ItemScreen
+import ru.compose.testcft.ui.itemscreen.ItemScreen
 import ru.compose.testcft.ui.mainscreen.MainScreen
 import ru.compose.testcft.ui.nistoryscreen.HistoryScreen
 

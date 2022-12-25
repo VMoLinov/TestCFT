@@ -89,14 +89,15 @@ fun MainTopBar(
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
-                ) { Text(text = "Enter a numbers") }
+                ) { Text(text = stringResource(R.string.enter_a_numbers)) }
             },
             actions = {
                 Icon(
                     modifier = Modifier
                         .size(40.dp)
                         .clickable { onNavigateToHistory() },
-                    imageVector = Icons.Default.List, contentDescription = "History"
+                    imageVector = Icons.Default.List,
+                    contentDescription = stringResource(R.string.history_screen)
                 )
             }
         )
@@ -197,13 +198,17 @@ fun CountryInfo(modifier: Modifier, country: Country?) {
             }
         }
         val context = LocalContext.current
-        val gmmIntentUri =
-            Uri.parse("geo:${country?.longitude},${country?.longitude}10.013988")
+        val coordinates = "${country?.latitude?.toDouble()},${country?.longitude?.toDouble()}"
+        val gmmIntentUri = Uri.parse("geo:$coordinates")
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setPackage("com.google.android.apps.maps")
-        Text(text = string, modifier = Modifier.clickable {
-            startActivity(context, mapIntent, null)
-        })
+        Text(
+            text = string,
+            modifier = if (country?.latitude != null && country.longitude != null) {
+                Modifier.clickable {
+                    startActivity(context, mapIntent, null)
+                }
+            } else Modifier)
     }
 }
 

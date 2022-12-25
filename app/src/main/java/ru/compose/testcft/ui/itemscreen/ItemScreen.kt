@@ -1,4 +1,4 @@
-package ru.compose.testcft.ui
+package ru.compose.testcft.ui.itemscreen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
