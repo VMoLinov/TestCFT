@@ -21,13 +21,9 @@ class MainScreenViewModel @Inject constructor(private val interactor: MainScreen
     fun loadData(number: String) {
         viewModelScope.launch {
             _data.value = MainScreenState.Loading
-            _data.value = interactor.getNetworkData(number)
-        }
-    }
-
-    fun saveResponse(response: Response) {
-        viewModelScope.launch {
-            interactor.insertData(response)
+            val response = interactor.getNetworkData(number)
+            _data.value = response
+            if (response is MainScreenState.Success) interactor.insertData(response.data)
         }
     }
 }

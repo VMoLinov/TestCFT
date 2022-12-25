@@ -7,6 +7,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import ru.compose.testcft.model.local.Response
+import ru.compose.testcft.ui.ItemScreen
 import ru.compose.testcft.ui.mainscreen.MainScreen
 import ru.compose.testcft.ui.nistoryscreen.HistoryScreen
 
@@ -29,11 +32,14 @@ fun AppNavHost(
         }
         composable(Points.HISTORY.name) {
             HistoryScreen(onNavigateToItem = {
-
+                navController.navigate("${Points.ITEM.name}/$it")
             })
         }
-        composable(Points.ITEM.name) {
-
+        composable(
+            "${Points.ITEM.name}/{response}",
+            arguments = listOf(navArgument("response") { type = ResponseNav() })
+        ) {
+            it.arguments?.getParcelable<Response>("response")?.let { response -> ItemScreen(response) }
         }
     }
 }

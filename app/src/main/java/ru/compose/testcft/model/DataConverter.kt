@@ -8,7 +8,7 @@ import ru.compose.testcft.model.network.ResponseDto
 
 class DataConverter {
 
-    fun fromDtoToLocal(responseDto: ResponseDto): Response {
+    fun fromDtoToLocal(responseDto: ResponseDto, number: String): Response {
         return Response(
             bank = Bank(
                 city = responseDto.bankDto?.city,
@@ -16,7 +16,8 @@ class DataConverter {
                 phone = responseDto.bankDto?.phone,
                 url = responseDto.bankDto?.url
             ),
-            brand = responseDto.brand,
+            numbers = number,
+            brand = responseDto.brand?.replaceFirstChar { it.uppercaseChar() },
             country = Country(
                 alpha2 = responseDto.countryDto?.alpha2,
                 currency = responseDto.countryDto?.currency,
@@ -31,8 +32,8 @@ class DataConverter {
                 luhn = responseDto.numberDto?.luhn
             ),
             prepaid = responseDto.prepaid,
-            scheme = responseDto.scheme,
-            type = responseDto.type
+            scheme = responseDto.scheme?.replaceFirstChar { it.uppercaseChar() },
+            type = responseDto.type?.replaceFirstChar { it.uppercaseChar() }
         )
     }
 }

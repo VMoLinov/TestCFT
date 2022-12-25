@@ -13,7 +13,7 @@ class MainNetworkSourceImpl(private val api: NetworkApi) :
 
     override suspend fun getData(number: String): MainScreenState {
         return try {
-            MainScreenState.Success(converter.fromDtoToLocal(api.getData(number)))
+            MainScreenState.Success(converter.fromDtoToLocal(api.getData(number), number))
         } catch (e: Exception) {
             val message = when (e) {
                 is UnknownHostException -> "Connection"
